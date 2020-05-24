@@ -13087,9 +13087,11 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import all packages and set plots to be embedded inline</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">chained_assignment</span> <span class="o">=</span> <span class="kc">None</span> 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">csv</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -13120,13 +13122,12 @@ div#notebook {
 
 
 <span class="c1"># Reduce the entirety over 350 columns to 40 essential columns</span>
-<span class="n">pisa_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CNT&quot;</span><span class="p">,</span> <span class="s2">&quot;ST04Q01&quot;</span><span class="p">,</span> <span class="s2">&quot;ST26Q04&quot;</span><span class="p">,</span> <span class="s2">&quot;ST26Q05&quot;</span><span class="p">,</span> <span class="s2">&quot;ST26Q06&quot;</span><span class="p">,</span> <span class="s2">&quot;IC01Q01&quot;</span><span class="p">,</span> 
-            <span class="s2">&quot;IC01Q02&quot;</span><span class="p">,</span> <span class="s2">&quot;IC01Q03&quot;</span><span class="p">,</span> <span class="s2">&quot;IC01Q04&quot;</span><span class="p">,</span> <span class="s2">&quot;IC02Q01&quot;</span><span class="p">,</span> <span class="s2">&quot;IC02Q02&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;IC02Q03&quot;</span><span class="p">,</span> <span class="s2">&quot;IC02Q04&quot;</span><span class="p">,</span> <span class="s2">&quot;IC03Q01&quot;</span><span class="p">,</span> <span class="s2">&quot;IC04Q01&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q01&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;IC10Q02&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q03&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q04&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q05&quot;</span><span class="p">,</span> 
+<span class="n">pisa_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CNT&quot;</span><span class="p">,</span> <span class="s2">&quot;OECD&quot;</span><span class="p">,</span> <span class="s2">&quot;ST04Q01&quot;</span><span class="p">,</span> <span class="s2">&quot;AGE&quot;</span><span class="p">,</span> 
+                <span class="s2">&quot;IC01Q01&quot;</span><span class="p">,</span> <span class="s2">&quot;IC01Q04&quot;</span><span class="p">,</span> <span class="s2">&quot;IC02Q01&quot;</span><span class="p">,</span> <span class="s2">&quot;IC02Q04&quot;</span><span class="p">,</span> <span class="s2">&quot;IC03Q01&quot;</span><span class="p">,</span> <span class="s2">&quot;IC04Q01&quot;</span><span class="p">,</span> 
+                <span class="s2">&quot;IC10Q01&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q02&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q03&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q04&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q05&quot;</span><span class="p">,</span> <span class="s2">&quot;ST57Q06&quot;</span><span class="p">,</span>
             <span class="s2">&quot;PV1MATH&quot;</span><span class="p">,</span> <span class="s2">&quot;PV2MATH&quot;</span><span class="p">,</span> <span class="s2">&quot;PV3MATH&quot;</span><span class="p">,</span> <span class="s2">&quot;PV4MATH&quot;</span><span class="p">,</span> <span class="s2">&quot;PV5MATH&quot;</span><span class="p">,</span>   
-            <span class="s2">&quot;PV1READ&quot;</span><span class="p">,</span> <span class="s2">&quot;PV2READ&quot;</span><span class="p">,</span> <span class="s2">&quot;PV3READ&quot;</span><span class="p">,</span> <span class="s2">&quot;PV4READ&quot;</span><span class="p">,</span> <span class="s2">&quot;PV5READ&quot;</span><span class="p">,</span> 
-            <span class="s2">&quot;PV1SCIE&quot;</span><span class="p">,</span> <span class="s2">&quot;PV2SCIE&quot;</span><span class="p">,</span> <span class="s2">&quot;PV3SCIE&quot;</span><span class="p">,</span> <span class="s2">&quot;PV4SCIE&quot;</span><span class="p">,</span> <span class="s2">&quot;PV5SCIE&quot;</span><span class="p">,</span> <span class="s2">&quot;AGE&quot;</span><span class="p">,</span> <span class="s2">&quot;OUTHOURS&quot;</span><span class="p">,</span> <span class="s2">&quot;PARED&quot;</span><span class="p">,</span> <span class="s2">&quot;TIMEINT&quot;</span><span class="p">]</span>
+            <span class="s2">&quot;PV1READ&quot;</span><span class="p">,</span> <span class="s2">&quot;PV2READ&quot;</span><span class="p">,</span> <span class="s2">&quot;PV3READ&quot;</span><span class="p">,</span> <span class="s2">&quot;PV4READ&quot;</span><span class="p">,</span> <span class="s2">&quot;PV5READ&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;PV1SCIE&quot;</span><span class="p">,</span> <span class="s2">&quot;PV2SCIE&quot;</span><span class="p">,</span> <span class="s2">&quot;PV3SCIE&quot;</span><span class="p">,</span> <span class="s2">&quot;PV4SCIE&quot;</span><span class="p">,</span> <span class="s2">&quot;PV5SCIE&quot;</span><span class="p">,</span> <span class="s2">&quot;OUTHOURS&quot;</span><span class="p">,</span> <span class="s2">&quot;TIMEINT&quot;</span><span class="p">]</span>
 <span class="n">pisa_new</span> <span class="o">=</span> <span class="n">pisa_data</span><span class="p">[</span><span class="n">pisa_columns</span><span class="p">]</span>
 </pre></div>
 
@@ -13205,17 +13206,12 @@ div#notebook {
     <tr style="text-align: right;">
       <th></th>
       <th>CNT</th>
+      <th>OECD</th>
       <th>ST04Q01</th>
-      <th>ST26Q04</th>
-      <th>ST26Q05</th>
-      <th>ST26Q06</th>
+      <th>AGE</th>
       <th>IC01Q01</th>
-      <th>IC01Q02</th>
-      <th>IC01Q03</th>
       <th>IC01Q04</th>
       <th>IC02Q01</th>
-      <th>IC02Q02</th>
-      <th>IC02Q03</th>
       <th>IC02Q04</th>
       <th>IC03Q01</th>
       <th>IC04Q01</th>
@@ -13224,6 +13220,7 @@ div#notebook {
       <th>IC10Q03</th>
       <th>IC10Q04</th>
       <th>IC10Q05</th>
+      <th>ST57Q06</th>
       <th>PV1MATH</th>
       <th>PV2MATH</th>
       <th>PV3MATH</th>
@@ -13239,314 +13236,161 @@ div#notebook {
       <th>PV3SCIE</th>
       <th>PV4SCIE</th>
       <th>PV5SCIE</th>
-      <th>AGE</th>
       <th>OUTHOURS</th>
-      <th>PARED</th>
       <th>TIMEINT</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>484252</th>
-      <td>Vietnam</td>
-      <td>Male</td>
-      <td>No</td>
-      <td>No</td>
-      <td>No</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>622.4568</td>
-      <td>599.0886</td>
-      <td>630.2461</td>
-      <td>610.7727</td>
-      <td>602.2044</td>
-      <td>511.5425</td>
-      <td>481.0686</td>
-      <td>513.1464</td>
-      <td>478.6628</td>
-      <td>537.2048</td>
-      <td>644.1067</td>
-      <td>664.6214</td>
-      <td>592.8198</td>
-      <td>651.5666</td>
-      <td>627.3219</td>
-      <td>15.92</td>
-      <td>NaN</td>
-      <td>12.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>423704</th>
-      <td>Singapore</td>
-      <td>Female</td>
-      <td>Yes</td>
-      <td>Yes</td>
-      <td>Yes</td>
-      <td>Yes, and I use it</td>
-      <td>Yes, and I use it</td>
-      <td>No</td>
-      <td>Yes, and I use it</td>
-      <td>Yes, but I don’t use it</td>
-      <td>No</td>
-      <td>No</td>
-      <td>Yes, but I don’t use it</td>
-      <td>7-9 years old</td>
-      <td>7-9 years old</td>
-      <td>Never or hardly ever</td>
-      <td>Never or hardly ever</td>
-      <td>Almost every day</td>
-      <td>Never or hardly ever</td>
-      <td>Never or hardly ever</td>
-      <td>679.4750</td>
-      <td>666.2331</td>
-      <td>739.4532</td>
-      <td>670.1277</td>
-      <td>689.6012</td>
-      <td>622.9019</td>
-      <td>602.2499</td>
-      <td>683.2695</td>
-      <td>580.8035</td>
-      <td>641.9654</td>
-      <td>615.8523</td>
-      <td>618.6498</td>
-      <td>702.5737</td>
-      <td>617.7173</td>
-      <td>627.9746</td>
-      <td>15.83</td>
-      <td>9.0</td>
-      <td>6.0</td>
-      <td>9.0</td>
-    </tr>
-    <tr>
-      <th>199964</th>
-      <td>United Kingdom</td>
-      <td>Male</td>
-      <td>Yes</td>
-      <td>No</td>
-      <td>Yes</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>434.0318</td>
-      <td>469.8629</td>
-      <td>416.8952</td>
-      <td>430.1371</td>
-      <td>381.8430</td>
-      <td>432.9519</td>
-      <td>451.3966</td>
-      <td>404.0819</td>
-      <td>418.5169</td>
-      <td>375.2118</td>
-      <td>492.7639</td>
-      <td>487.1690</td>
-      <td>423.7598</td>
-      <td>448.0045</td>
-      <td>397.6501</td>
-      <td>15.75</td>
-      <td>NaN</td>
-      <td>12.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>9155</th>
-      <td>United Arab Emirates</td>
-      <td>Male</td>
-      <td>Yes</td>
-      <td>Yes</td>
-      <td>Yes</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>433.7202</td>
-      <td>439.9517</td>
-      <td>465.6566</td>
-      <td>449.2990</td>
-      <td>485.9090</td>
-      <td>441.6931</td>
-      <td>388.7647</td>
-      <td>357.4889</td>
-      <td>403.1997</td>
-      <td>404.8036</td>
-      <td>421.2421</td>
-      <td>391.4025</td>
-      <td>410.0522</td>
-      <td>410.9847</td>
-      <td>434.2969</td>
-      <td>15.92</td>
-      <td>62.0</td>
-      <td>16.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>259264</th>
+      <th>246708</th>
       <td>Italy</td>
+      <td>OECD</td>
       <td>Female</td>
-      <td>Yes</td>
-      <td>Yes</td>
-      <td>Yes</td>
+      <td>16.08</td>
       <td>Yes, and I use it</td>
       <td>Yes, and I use it</td>
-      <td>No</td>
       <td>Yes, and I use it</td>
       <td>Yes, and I use it</td>
-      <td>No</td>
-      <td>Yes, and I use it</td>
-      <td>No</td>
       <td>6 years old or younger</td>
-      <td>7-9 years old</td>
+      <td>10-12 years old</td>
+      <td>Once or twice a week</td>
       <td>Never or hardly ever</td>
+      <td>Once or twice a month</td>
       <td>Never or hardly ever</td>
-      <td>Almost every day</td>
-      <td>Never or hardly ever</td>
-      <td>Never or hardly ever</td>
-      <td>494.0879</td>
-      <td>458.2567</td>
-      <td>497.9826</td>
-      <td>497.9826</td>
-      <td>448.9095</td>
-      <td>499.2279</td>
-      <td>518.2913</td>
-      <td>529.4116</td>
-      <td>515.1141</td>
-      <td>473.0156</td>
-      <td>542.4655</td>
-      <td>494.9086</td>
-      <td>541.5330</td>
-      <td>493.0436</td>
-      <td>547.1279</td>
-      <td>15.50</td>
-      <td>3.0</td>
-      <td>13.0</td>
-      <td>41.0</td>
+      <td>Once or twice a month</td>
+      <td>2.0</td>
+      <td>281.2821</td>
+      <td>312.4396</td>
+      <td>268.0402</td>
+      <td>317.8922</td>
+      <td>342.0393</td>
+      <td>385.6415</td>
+      <td>399.9391</td>
+      <td>388.8187</td>
+      <td>382.4643</td>
+      <td>392.7903</td>
+      <td>374.6177</td>
+      <td>401.6598</td>
+      <td>402.5923</td>
+      <td>412.8497</td>
+      <td>395.1324</td>
+      <td>5.0</td>
+      <td>81.0</td>
     </tr>
     <tr>
-      <th>128185</th>
-      <td>Czech Republic</td>
+      <th>455762</th>
+      <td>Thailand</td>
+      <td>Non-OECD</td>
+      <td>Female</td>
+      <td>15.50</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>283.3853</td>
+      <td>273.2591</td>
+      <td>327.0058</td>
+      <td>355.0475</td>
+      <td>364.3948</td>
+      <td>358.3967</td>
+      <td>398.1122</td>
+      <td>395.7292</td>
+      <td>395.7292</td>
+      <td>465.6285</td>
+      <td>331.1637</td>
+      <td>342.3536</td>
+      <td>402.9653</td>
+      <td>392.7079</td>
+      <td>430.0075</td>
+      <td>7.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>64306</th>
+      <td>Brazil</td>
+      <td>Non-OECD</td>
+      <td>Female</td>
+      <td>16.33</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>342.5845</td>
+      <td>397.1101</td>
+      <td>368.2895</td>
+      <td>395.5523</td>
+      <td>404.1206</td>
+      <td>413.2041</td>
+      <td>464.0399</td>
+      <td>449.7423</td>
+      <td>427.5016</td>
+      <td>446.5651</td>
+      <td>410.9847</td>
+      <td>431.4994</td>
+      <td>375.5502</td>
+      <td>463.2040</td>
+      <td>426.8370</td>
+      <td>3.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>241643</th>
+      <td>Italy</td>
+      <td>OECD</td>
       <td>Male</td>
-      <td>Yes</td>
-      <td>No</td>
-      <td>Yes</td>
-      <td>No</td>
-      <td>Yes, and I use it</td>
-      <td>No</td>
-      <td>Yes, and I use it</td>
-      <td>Yes, and I use it</td>
+      <td>15.75</td>
       <td>No</td>
       <td>No</td>
       <td>Yes, and I use it</td>
-      <td>6 years old or younger</td>
+      <td>Yes, and I use it</td>
       <td>7-9 years old</td>
-      <td>Every day</td>
-      <td>Once or twice a week</td>
-      <td>NaN</td>
+      <td>10-12 years old</td>
       <td>Never or hardly ever</td>
       <td>Never or hardly ever</td>
-      <td>522.0517</td>
-      <td>525.9464</td>
-      <td>555.5460</td>
-      <td>571.1248</td>
-      <td>518.9360</td>
-      <td>526.8597</td>
-      <td>467.5157</td>
-      <td>529.2655</td>
-      <td>514.0285</td>
-      <td>524.4538</td>
-      <td>549.9254</td>
-      <td>537.8031</td>
-      <td>590.0224</td>
-      <td>559.2503</td>
-      <td>574.1701</td>
-      <td>15.58</td>
-      <td>NaN</td>
-      <td>16.0</td>
+      <td>Never or hardly ever</td>
+      <td>Never or hardly ever</td>
+      <td>Never or hardly ever</td>
+      <td>0.0</td>
+      <td>450.9347</td>
+      <td>422.1140</td>
+      <td>440.0296</td>
+      <td>462.6188</td>
+      <td>455.6084</td>
+      <td>396.8644</td>
+      <td>380.0235</td>
+      <td>404.0819</td>
+      <td>424.1305</td>
+      <td>380.8255</td>
+      <td>455.7441</td>
+      <td>410.9847</td>
+      <td>438.0269</td>
+      <td>451.0817</td>
+      <td>430.5670</td>
+      <td>1.0</td>
       <td>86.0</td>
     </tr>
     <tr>
-      <th>336211</th>
-      <td>Mexico</td>
-      <td>Female</td>
-      <td>No</td>
-      <td>No</td>
-      <td>No</td>
-      <td>Yes, and I use it</td>
-      <td>No</td>
-      <td>No</td>
-      <td>No</td>
-      <td>Yes, but I don’t use it</td>
-      <td>Yes, but I don’t use it</td>
-      <td>Yes, but I don’t use it</td>
-      <td>Yes, but I don’t use it</td>
-      <td>10-12 years old</td>
-      <td>10-12 years old</td>
-      <td>Never or hardly ever</td>
-      <td>Once or twice a week</td>
-      <td>Almost every day</td>
-      <td>Once or twice a week</td>
-      <td>Never or hardly ever</td>
-      <td>327.5510</td>
-      <td>373.5083</td>
-      <td>330.6668</td>
-      <td>340.7930</td>
-      <td>374.2873</td>
-      <td>377.4601</td>
-      <td>437.8277</td>
-      <td>389.3748</td>
-      <td>341.7162</td>
-      <td>408.4382</td>
-      <td>391.4025</td>
-      <td>444.5543</td>
-      <td>411.9172</td>
-      <td>401.6598</td>
-      <td>413.7822</td>
-      <td>15.58</td>
-      <td>11.0</td>
-      <td>16.0</td>
-      <td>51.0</td>
-    </tr>
-    <tr>
-      <th>304054</th>
-      <td>Luxembourg</td>
-      <td>Female</td>
-      <td>Yes</td>
-      <td>Yes</td>
-      <td>Yes</td>
+      <th>19089</th>
+      <td>Argentina</td>
+      <td>Non-OECD</td>
+      <td>Male</td>
+      <td>15.67</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -13559,36 +13403,30 @@ div#notebook {
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
+      <td>403.1080</td>
+      <td>378.1820</td>
+      <td>387.5292</td>
+      <td>368.8347</td>
+      <td>368.0558</td>
+      <td>457.0904</td>
+      <td>439.4476</td>
+      <td>432.2301</td>
+      <td>411.3796</td>
+      <td>464.3079</td>
+      <td>394.1999</td>
+      <td>407.2548</td>
+      <td>394.1999</td>
+      <td>369.0228</td>
+      <td>394.1999</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>445.7937</td>
-      <td>483.1827</td>
-      <td>447.3516</td>
-      <td>407.6258</td>
-      <td>435.6675</td>
-      <td>453.7139</td>
-      <td>472.7773</td>
-      <td>454.5082</td>
-      <td>466.4228</td>
-      <td>369.5170</td>
-      <td>419.6568</td>
-      <td>437.3741</td>
-      <td>442.9690</td>
-      <td>393.5472</td>
-      <td>428.0492</td>
-      <td>16.00</td>
-      <td>2.0</td>
-      <td>17.0</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>463541</th>
+      <th>461539</th>
       <td>Tunisia</td>
-      <td>Male</td>
-      <td>No</td>
-      <td>No</td>
-      <td>No</td>
+      <td>Non-OECD</td>
+      <td>Female</td>
+      <td>15.58</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -13601,70 +13439,167 @@ div#notebook {
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
+      <td>355.3591</td>
+      <td>329.6542</td>
+      <td>327.3173</td>
+      <td>307.0650</td>
+      <td>273.5706</td>
+      <td>349.8181</td>
+      <td>319.6343</td>
+      <td>319.6343</td>
+      <td>280.7131</td>
+      <td>362.5271</td>
+      <td>341.7941</td>
+      <td>359.5114</td>
+      <td>338.0642</td>
+      <td>322.2119</td>
+      <td>340.8616</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>364.8621</td>
-      <td>404.5879</td>
-      <td>382.7777</td>
-      <td>338.3783</td>
-      <td>364.0832</td>
-      <td>353.6395</td>
-      <td>403.3601</td>
-      <td>374.4901</td>
-      <td>398.5484</td>
-      <td>403.3601</td>
-      <td>351.5852</td>
-      <td>374.8974</td>
-      <td>328.2730</td>
-      <td>398.2096</td>
-      <td>366.5050</td>
-      <td>16.08</td>
-      <td>2.0</td>
-      <td>3.0</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>217990</th>
-      <td>Hungary</td>
+      <th>479081</th>
+      <td>United States of America</td>
+      <td>OECD</td>
       <td>Male</td>
-      <td>Yes</td>
+      <td>16.17</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>446.8064</td>
+      <td>474.8481</td>
+      <td>463.9430</td>
+      <td>528.5948</td>
+      <td>431.2276</td>
+      <td>414.5072</td>
+      <td>444.1791</td>
+      <td>444.9811</td>
+      <td>425.7344</td>
+      <td>407.2896</td>
+      <td>407.3480</td>
+      <td>462.3648</td>
+      <td>469.8247</td>
+      <td>482.8795</td>
+      <td>423.2003</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>144821</th>
+      <td>Denmark</td>
+      <td>OECD</td>
+      <td>Male</td>
+      <td>15.58</td>
       <td>No</td>
-      <td>Yes</td>
+      <td>Yes, and I use it</td>
+      <td>Yes, but I don’t use it</td>
+      <td>Yes, and I use it</td>
+      <td>7-9 years old</td>
+      <td>7-9 years old</td>
+      <td>Almost every day</td>
+      <td>Never or hardly ever</td>
+      <td>Almost every day</td>
+      <td>Once or twice a month</td>
+      <td>Never or hardly ever</td>
+      <td>NaN</td>
+      <td>626.1178</td>
+      <td>635.4650</td>
+      <td>625.3388</td>
+      <td>616.7705</td>
+      <td>620.6652</td>
+      <td>574.9764</td>
+      <td>590.2133</td>
+      <td>580.5900</td>
+      <td>591.0153</td>
+      <td>590.2133</td>
+      <td>614.6401</td>
+      <td>614.6401</td>
+      <td>605.3152</td>
+      <td>622.1000</td>
+      <td>659.3995</td>
+      <td>NaN</td>
+      <td>32.0</td>
+    </tr>
+    <tr>
+      <th>160528</th>
+      <td>Spain</td>
+      <td>OECD</td>
+      <td>Female</td>
+      <td>15.67</td>
       <td>Yes, and I use it</td>
       <td>Yes, and I use it</td>
-      <td>No</td>
       <td>Yes, and I use it</td>
-      <td>No</td>
-      <td>No</td>
-      <td>No</td>
-      <td>No</td>
+      <td>Yes, and I use it</td>
       <td>6 years old or younger</td>
       <td>7-9 years old</td>
+      <td>Never or hardly ever</td>
+      <td>Never or hardly ever</td>
+      <td>Once or twice a week</td>
       <td>Once or twice a month</td>
-      <td>Once or twice a month</td>
       <td>Never or hardly ever</td>
-      <td>Never or hardly ever</td>
-      <td>Never or hardly ever</td>
-      <td>585.0678</td>
-      <td>574.9416</td>
-      <td>613.1095</td>
-      <td>598.3097</td>
-      <td>604.5412</td>
-      <td>551.9605</td>
-      <td>583.2364</td>
-      <td>602.4831</td>
-      <td>592.0578</td>
-      <td>555.1683</td>
-      <td>598.4148</td>
-      <td>596.5498</td>
-      <td>617.0645</td>
-      <td>622.6595</td>
-      <td>631.0518</td>
-      <td>15.42</td>
-      <td>28.0</td>
-      <td>16.5</td>
+      <td>0.0</td>
+      <td>575.0195</td>
+      <td>552.4303</td>
+      <td>537.6305</td>
+      <td>515.0413</td>
+      <td>479.2102</td>
+      <td>581.5184</td>
+      <td>595.0217</td>
+      <td>548.9517</td>
+      <td>586.2842</td>
+      <td>548.9517</td>
+      <td>552.4431</td>
+      <td>577.6203</td>
+      <td>588.8101</td>
+      <td>610.2574</td>
+      <td>557.1056</td>
       <td>13.0</td>
+      <td>39.0</td>
+    </tr>
+    <tr>
+      <th>162498</th>
+      <td>Spain</td>
+      <td>OECD</td>
+      <td>Female</td>
+      <td>15.50</td>
+      <td>Yes, and I use it</td>
+      <td>Yes, and I use it</td>
+      <td>Yes, and I use it</td>
+      <td>Yes, and I use it</td>
+      <td>6 years old or younger</td>
+      <td>7-9 years old</td>
+      <td>Once or twice a week</td>
+      <td>Once or twice a week</td>
+      <td>Once or twice a week</td>
+      <td>Once or twice a week</td>
+      <td>Once or twice a month</td>
+      <td>NaN</td>
+      <td>431.0718</td>
+      <td>491.0500</td>
+      <td>459.8925</td>
+      <td>440.4191</td>
+      <td>474.6923</td>
+      <td>482.0708</td>
+      <td>497.1626</td>
+      <td>448.7097</td>
+      <td>511.4602</td>
+      <td>500.3399</td>
+      <td>451.2682</td>
+      <td>463.3905</td>
+      <td>461.5256</td>
+      <td>444.7408</td>
+      <td>473.6479</td>
+      <td>NaN</td>
+      <td>75.0</td>
     </tr>
   </tbody>
 </table>
@@ -13709,19 +13644,14 @@ div#notebook {
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 RangeIndex: 485490 entries, 0 to 485489
-Data columns (total 39 columns):
+Data columns (total 33 columns):
 CNT         485490 non-null object
+OECD        485490 non-null object
 ST04Q01     485490 non-null object
-ST26Q04     473877 non-null object
-ST26Q05     463178 non-null object
-ST26Q06     473182 non-null object
+AGE         485374 non-null float64
 IC01Q01     296977 non-null object
-IC01Q02     297068 non-null object
-IC01Q03     295602 non-null object
 IC01Q04     297305 non-null object
 IC02Q01     296975 non-null object
-IC02Q02     295618 non-null object
-IC02Q03     294625 non-null object
 IC02Q04     296944 non-null object
 IC03Q01     293216 non-null object
 IC04Q01     296305 non-null object
@@ -13730,6 +13660,7 @@ IC10Q02     291025 non-null object
 IC10Q03     290262 non-null object
 IC10Q04     290907 non-null object
 IC10Q05     291025 non-null object
+ST57Q06     289428 non-null float64
 PV1MATH     485490 non-null float64
 PV2MATH     485490 non-null float64
 PV3MATH     485490 non-null float64
@@ -13745,12 +13676,10 @@ PV2SCIE     485490 non-null float64
 PV3SCIE     485490 non-null float64
 PV4SCIE     485490 non-null float64
 PV5SCIE     485490 non-null float64
-AGE         485374 non-null float64
 OUTHOURS    308799 non-null float64
-PARED       473091 non-null float64
 TIMEINT     297074 non-null float64
-dtypes: float64(19), object(20)
-memory usage: 144.5+ MB
+dtypes: float64(19), object(14)
+memory usage: 122.2+ MB
 Number of duplicate rows: 0
 </pre>
 </div>
@@ -13781,6 +13710,8 @@ Number of duplicate rows: 0
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>AGE</th>
+      <th>ST57Q06</th>
       <th>PV1MATH</th>
       <th>PV2MATH</th>
       <th>PV3MATH</th>
@@ -13796,15 +13727,15 @@ Number of duplicate rows: 0
       <th>PV3SCIE</th>
       <th>PV4SCIE</th>
       <th>PV5SCIE</th>
-      <th>AGE</th>
       <th>OUTHOURS</th>
-      <th>PARED</th>
       <th>TIMEINT</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>count</th>
+      <td>485374.000000</td>
+      <td>289428.000000</td>
       <td>485490.000000</td>
       <td>485490.000000</td>
       <td>485490.000000</td>
@@ -13820,13 +13751,13 @@ Number of duplicate rows: 0
       <td>485490.000000</td>
       <td>485490.00000</td>
       <td>485490.000000</td>
-      <td>485374.000000</td>
       <td>308799.000000</td>
-      <td>473091.000000</td>
       <td>297074.000000</td>
     </tr>
     <tr>
       <th>mean</th>
+      <td>15.784283</td>
+      <td>1.583081</td>
       <td>469.621653</td>
       <td>469.648358</td>
       <td>469.648930</td>
@@ -13842,13 +13773,13 @@ Number of duplicate rows: 0
       <td>475.851549</td>
       <td>475.78524</td>
       <td>475.820184</td>
-      <td>15.784283</td>
       <td>11.104100</td>
-      <td>12.995225</td>
       <td>50.895996</td>
     </tr>
     <tr>
       <th>std</th>
+      <td>0.290221</td>
+      <td>2.760885</td>
       <td>103.265391</td>
       <td>103.382077</td>
       <td>103.407631</td>
@@ -13864,13 +13795,13 @@ Number of duplicate rows: 0
       <td>101.495072</td>
       <td>101.51220</td>
       <td>101.566347</td>
-      <td>0.290221</td>
       <td>10.476669</td>
-      <td>3.398623</td>
       <td>40.987895</td>
     </tr>
     <tr>
       <th>min</th>
+      <td>15.170000</td>
+      <td>0.000000</td>
       <td>19.792800</td>
       <td>6.473000</td>
       <td>42.226200</td>
@@ -13886,13 +13817,13 @@ Number of duplicate rows: 0
       <td>11.879900</td>
       <td>8.42970</td>
       <td>17.754600</td>
-      <td>15.170000</td>
       <td>0.000000</td>
-      <td>3.000000</td>
       <td>0.000000</td>
     </tr>
     <tr>
       <th>25%</th>
+      <td>15.580000</td>
+      <td>0.000000</td>
       <td>395.318600</td>
       <td>395.318600</td>
       <td>395.240700</td>
@@ -13908,13 +13839,13 @@ Number of duplicate rows: 0
       <td>404.550500</td>
       <td>404.45730</td>
       <td>404.457300</td>
-      <td>15.580000</td>
       <td>4.000000</td>
-      <td>12.000000</td>
       <td>19.000000</td>
     </tr>
     <tr>
       <th>50%</th>
+      <td>15.750000</td>
+      <td>1.000000</td>
       <td>466.201900</td>
       <td>466.124000</td>
       <td>466.201900</td>
@@ -13930,13 +13861,13 @@ Number of duplicate rows: 0
       <td>475.699400</td>
       <td>475.97910</td>
       <td>475.885900</td>
-      <td>15.750000</td>
       <td>8.000000</td>
-      <td>13.000000</td>
       <td>39.000000</td>
     </tr>
     <tr>
       <th>75%</th>
+      <td>16.000000</td>
+      <td>2.000000</td>
       <td>541.057800</td>
       <td>541.447300</td>
       <td>541.291500</td>
@@ -13952,13 +13883,13 @@ Number of duplicate rows: 0
       <td>547.967200</td>
       <td>547.78070</td>
       <td>547.780700</td>
-      <td>16.000000</td>
       <td>14.000000</td>
-      <td>16.000000</td>
       <td>71.000000</td>
     </tr>
     <tr>
       <th>max</th>
+      <td>16.330000</td>
+      <td>30.000000</td>
       <td>962.229300</td>
       <td>957.010400</td>
       <td>935.745400</td>
@@ -13974,9 +13905,7 @@ Number of duplicate rows: 0
       <td>867.624000</td>
       <td>926.55730</td>
       <td>880.958600</td>
-      <td>16.330000</td>
       <td>180.000000</td>
-      <td>18.000000</td>
       <td>206.000000</td>
     </tr>
   </tbody>
@@ -13999,7 +13928,7 @@ Number of duplicate rows: 0
 <li>potential outlier values for variable OUTHOURS (learning time out of school)</li>
 </ul>
 <h4 id="Tidiness">Tidiness<a class="anchor-link" href="#Tidiness">&#182;</a></h4><ul>
-<li>test scores vor READ, MATH and SCIENCE are split into five columns with plausible values</li>
+<li>test scores for READ, MATH and SCIENCE are split into five columns with plausible values</li>
 <li>column names should be renamed for reasons of consistency and clarity</li>
 </ul>
 
@@ -14050,12 +13979,10 @@ Number of duplicate rows: 0
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Rename columns of dataframe</span>
-<span class="n">pisa_new</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s2">&quot;CNT&quot;</span><span class="p">:</span><span class="s2">&quot;country&quot;</span><span class="p">,</span> <span class="s2">&quot;ST04Q01&quot;</span><span class="p">:</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;ST26Q04&quot;</span><span class="p">:</span><span class="s2">&quot;posession_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;ST26Q05&quot;</span><span class="p">:</span><span class="s2">&quot;posession_software&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;ST26Q06&quot;</span><span class="p">:</span><span class="s2">&quot;posession_internet&quot;</span><span class="p">,</span> <span class="s2">&quot;IC01Q01&quot;</span><span class="p">:</span><span class="s2">&quot;at_home_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;IC01Q02&quot;</span><span class="p">:</span><span class="s2">&quot;at_home_laptop&quot;</span><span class="p">,</span> <span class="s2">&quot;IC01Q03&quot;</span><span class="p">:</span><span class="s2">&quot;at_home_tablet&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;IC01Q04&quot;</span><span class="p">:</span><span class="s2">&quot;at_home_internet&quot;</span><span class="p">,</span> <span class="s2">&quot;IC02Q01&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;IC02Q02&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_laptop&quot;</span><span class="p">,</span> <span class="s2">&quot;IC02Q03&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_tablet&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;IC02Q04&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_internet&quot;</span><span class="p">,</span> <span class="s2">&quot;IC03Q01&quot;</span><span class="p">:</span><span class="s2">&quot;first_use_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;IC04Q01&quot;</span><span class="p">:</span><span class="s2">&quot;first_use_internet&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q01&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_chatting&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;IC10Q02&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_emailing&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q03&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_browsing&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q04&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_downloading&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q05&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_posting&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;AGE&quot;</span><span class="p">:</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;OUTHOURS&quot;</span><span class="p">:</span><span class="s2">&quot;study_time&quot;</span><span class="p">,</span> <span class="s2">&quot;TIMEINT&quot;</span><span class="p">:</span><span class="s2">&quot;computer_time&quot;</span><span class="p">,</span> <span class="s2">&quot;PARED&quot;</span><span class="p">:</span><span class="s2">&quot;parent_education_years&quot;</span><span class="p">},</span> 
+<span class="n">pisa_new</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s2">&quot;CNT&quot;</span><span class="p">:</span><span class="s2">&quot;country&quot;</span><span class="p">,</span> <span class="s2">&quot;ST04Q01&quot;</span><span class="p">:</span><span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;IC01Q01&quot;</span><span class="p">:</span><span class="s2">&quot;at_home_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;IC01Q04&quot;</span><span class="p">:</span><span class="s2">&quot;at_home_internet&quot;</span><span class="p">,</span> <span class="s2">&quot;AGE&quot;</span><span class="p">:</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;OECD&quot;</span><span class="p">:</span><span class="s2">&quot;oecd&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;IC02Q01&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;IC02Q04&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_internet&quot;</span><span class="p">,</span> <span class="s2">&quot;IC03Q01&quot;</span><span class="p">:</span><span class="s2">&quot;first_use_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;IC04Q01&quot;</span><span class="p">:</span><span class="s2">&quot;first_use_internet&quot;</span><span class="p">,</span> 
+                 <span class="s2">&quot;IC10Q01&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_chatting&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q02&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_emailing&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q03&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_browsing&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q04&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_downloading&quot;</span><span class="p">,</span> <span class="s2">&quot;IC10Q05&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_posting&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;OUTHOURS&quot;</span><span class="p">:</span><span class="s2">&quot;at_home_study_time&quot;</span><span class="p">,</span> <span class="s2">&quot;TIMEINT&quot;</span><span class="p">:</span><span class="s2">&quot;at_school_computer_study_time&quot;</span><span class="p">,</span> <span class="s2">&quot;ST57Q06&quot;</span><span class="p">:</span><span class="s2">&quot;at_home_computer_study_time&quot;</span><span class="p">},</span> 
           <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;columns&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Test if changes were successful</span>
@@ -14096,17 +14023,12 @@ Number of duplicate rows: 0
     <tr style="text-align: right;">
       <th></th>
       <th>country</th>
+      <th>oecd</th>
       <th>gender</th>
-      <th>posession_computer</th>
-      <th>posession_software</th>
-      <th>posession_internet</th>
+      <th>age</th>
       <th>at_home_computer</th>
-      <th>at_home_laptop</th>
-      <th>at_home_tablet</th>
       <th>at_home_internet</th>
       <th>at_school_computer</th>
-      <th>at_school_laptop</th>
-      <th>at_school_tablet</th>
       <th>at_school_internet</th>
       <th>first_use_computer</th>
       <th>first_use_internet</th>
@@ -14115,10 +14037,9 @@ Number of duplicate rows: 0
       <th>at_school_browsing</th>
       <th>at_school_downloading</th>
       <th>at_school_posting</th>
-      <th>age</th>
-      <th>study_time</th>
-      <th>parent_education_years</th>
-      <th>computer_time</th>
+      <th>at_home_computer_study_time</th>
+      <th>at_home_study_time</th>
+      <th>at_school_computer_study_time</th>
       <th>avg_math_score</th>
       <th>avg_read_score</th>
       <th>avg_science_score</th>
@@ -14127,74 +14048,86 @@ Number of duplicate rows: 0
   </thead>
   <tbody>
     <tr>
-      <th>137443</th>
-      <td>Germany</td>
+      <th>25797</th>
+      <td>Australia</td>
+      <td>OECD</td>
       <td>Male</td>
-      <td>Yes</td>
-      <td>Yes</td>
-      <td>Yes</td>
+      <td>15.50</td>
       <td>Yes, and I use it</td>
       <td>Yes, and I use it</td>
-      <td>No</td>
       <td>Yes, and I use it</td>
-      <td>Yes, and I use it</td>
-      <td>No</td>
-      <td>No</td>
       <td>Yes, and I use it</td>
       <td>7-9 years old</td>
-      <td>10-12 years old</td>
+      <td>7-9 years old</td>
       <td>Never or hardly ever</td>
       <td>Never or hardly ever</td>
-      <td>Once or twice a week</td>
-      <td>Never or hardly ever</td>
-      <td>Never or hardly ever</td>
-      <td>16.33</td>
+      <td>Almost every day</td>
+      <td>Almost every day</td>
+      <td>Once or twice a month</td>
       <td>NaN</td>
-      <td>15.0</td>
-      <td>114.0</td>
-      <td>532.48946</td>
-      <td>518.76004</td>
-      <td>510.66766</td>
-      <td>520.639053</td>
+      <td>4.0</td>
+      <td>94.0</td>
+      <td>361.04532</td>
+      <td>354.92262</td>
+      <td>359.97762</td>
+      <td>358.648520</td>
     </tr>
     <tr>
-      <th>179393</th>
-      <td>Finland</td>
+      <th>168545</th>
+      <td>Spain</td>
+      <td>OECD</td>
       <td>Female</td>
-      <td>Yes</td>
-      <td>Yes</td>
-      <td>Yes</td>
+      <td>15.75</td>
       <td>Yes, and I use it</td>
       <td>Yes, and I use it</td>
-      <td>No</td>
       <td>Yes, and I use it</td>
       <td>Yes, and I use it</td>
-      <td>No</td>
-      <td>No</td>
-      <td>Yes, and I use it</td>
-      <td>6 years old or younger</td>
-      <td>6 years old or younger</td>
-      <td>Once or twice a week</td>
+      <td>10-12 years old</td>
+      <td>10-12 years old</td>
       <td>Once or twice a month</td>
       <td>Once or twice a week</td>
       <td>Once or twice a week</td>
       <td>Once or twice a week</td>
-      <td>15.25</td>
-      <td>10.0</td>
-      <td>12.0</td>
-      <td>71.0</td>
-      <td>471.73234</td>
-      <td>544.42410</td>
-      <td>516.07610</td>
-      <td>510.744180</td>
+      <td>Never or hardly ever</td>
+      <td>2.0</td>
+      <td>6.0</td>
+      <td>28.0</td>
+      <td>470.64186</td>
+      <td>454.50820</td>
+      <td>432.43194</td>
+      <td>452.527333</td>
     </tr>
     <tr>
-      <th>289869</th>
-      <td>Kazakhstan</td>
+      <th>317692</th>
+      <td>Mexico</td>
+      <td>OECD</td>
+      <td>Male</td>
+      <td>15.42</td>
+      <td>Yes, and I use it</td>
+      <td>Yes, and I use it</td>
+      <td>Yes, and I use it</td>
+      <td>Yes, and I use it</td>
+      <td>10-12 years old</td>
+      <td>10-12 years old</td>
+      <td>Never or hardly ever</td>
+      <td>Never or hardly ever</td>
+      <td>Never or hardly ever</td>
+      <td>Never or hardly ever</td>
+      <td>Never or hardly ever</td>
+      <td>1.0</td>
+      <td>6.0</td>
+      <td>28.0</td>
+      <td>441.97692</td>
+      <td>474.25206</td>
+      <td>451.82768</td>
+      <td>456.018887</td>
+    </tr>
+    <tr>
+      <th>63474</th>
+      <td>Brazil</td>
+      <td>Non-OECD</td>
       <td>Female</td>
-      <td>No</td>
-      <td>No</td>
-      <td>No</td>
+      <td>16.33</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -14206,80 +14139,38 @@ Number of duplicate rows: 0
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>16.17</td>
-      <td>NaN</td>
+      <td>1.0</td>
       <td>9.0</td>
       <td>NaN</td>
-      <td>468.22714</td>
-      <td>417.49336</td>
-      <td>448.00446</td>
-      <td>444.574987</td>
+      <td>478.74282</td>
+      <td>475.79572</td>
+      <td>415.27414</td>
+      <td>456.604227</td>
     </tr>
     <tr>
-      <th>181528</th>
-      <td>Finland</td>
+      <th>374646</th>
+      <td>Peru</td>
+      <td>Non-OECD</td>
       <td>Male</td>
-      <td>Yes</td>
-      <td>No</td>
-      <td>Yes</td>
-      <td>Yes, and I use it</td>
-      <td>Yes, but I don’t use it</td>
-      <td>No</td>
-      <td>Yes, and I use it</td>
-      <td>Yes, and I use it</td>
-      <td>No</td>
-      <td>No</td>
-      <td>No</td>
-      <td>7-9 years old</td>
-      <td>7-9 years old</td>
-      <td>Never or hardly ever</td>
-      <td>Never or hardly ever</td>
-      <td>Never or hardly ever</td>
-      <td>Never or hardly ever</td>
-      <td>Never or hardly ever</td>
-      <td>15.83</td>
+      <td>16.00</td>
       <td>NaN</td>
-      <td>16.5</td>
-      <td>32.0</td>
-      <td>481.46910</td>
-      <td>449.71252</td>
-      <td>514.58410</td>
-      <td>481.921907</td>
-    </tr>
-    <tr>
-      <th>262608</th>
-      <td>Italy</td>
-      <td>Female</td>
-      <td>Yes</td>
-      <td>No</td>
-      <td>Yes</td>
-      <td>Yes, and I use it</td>
-      <td>Yes, and I use it</td>
-      <td>Yes, but I don’t use it</td>
-      <td>Yes, and I use it</td>
-      <td>Yes, and I use it</td>
-      <td>No</td>
-      <td>No</td>
-      <td>Yes, and I use it</td>
-      <td>10-12 years old</td>
-      <td>10-12 years old</td>
-      <td>Every day</td>
-      <td>Every day</td>
-      <td>Never or hardly ever</td>
-      <td>Never or hardly ever</td>
-      <td>Never or hardly ever</td>
-      <td>15.58</td>
       <td>NaN</td>
-      <td>13.0</td>
-      <td>64.0</td>
-      <td>401.16060</td>
-      <td>439.89288</td>
-      <td>447.44498</td>
-      <td>429.499487</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>15.0</td>
+      <td>NaN</td>
+      <td>371.56100</td>
+      <td>400.95426</td>
+      <td>390.84298</td>
+      <td>387.786080</td>
     </tr>
   </tbody>
 </table>
@@ -14305,16 +14196,14 @@ Number of duplicate rows: 0
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Do conversion for string data type</span>
-<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">,</span> <span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;posession_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;posession_software&quot;</span><span class="p">,</span> 
-          <span class="s2">&quot;posession_internet&quot;</span><span class="p">,</span> <span class="s2">&quot;at_home_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;at_home_laptop&quot;</span><span class="p">,</span> <span class="s2">&quot;at_home_tablet&quot;</span><span class="p">,</span> 
-          <span class="s2">&quot;at_home_internet&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_laptop&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_tablet&quot;</span><span class="p">,</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Do conversion for string data types</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;country&quot;</span><span class="p">,</span> <span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;at_home_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;at_home_internet&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_computer&quot;</span><span class="p">,</span>
           <span class="s2">&quot;at_school_internet&quot;</span><span class="p">,</span> <span class="s2">&quot;first_use_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;first_use_internet&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_chatting&quot;</span><span class="p">,</span> 
-          <span class="s2">&quot;at_school_emailing&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_browsing&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_downloading&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_posting&quot;</span><span class="p">]:</span>
+          <span class="s2">&quot;at_school_emailing&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_browsing&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_downloading&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_posting&quot;</span><span class="p">,</span> <span class="s2">&quot;oecd&quot;</span><span class="p">]:</span>
     <span class="n">pisa_new</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">pisa_new</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 
-<span class="c1"># Do conversion for float data type</span>
-<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;study_time&quot;</span><span class="p">,</span> <span class="s2">&quot;computer_time&quot;</span><span class="p">,</span> <span class="s2">&quot;parent_education_years&quot;</span><span class="p">,</span> <span class="s2">&quot;avg_math_score&quot;</span><span class="p">,</span> 
+<span class="c1"># Do conversion for float data types</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;at_home_study_time&quot;</span><span class="p">,</span> <span class="s2">&quot;at_home_computer_study_time&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_computer_study_time&quot;</span><span class="p">,</span> <span class="s2">&quot;avg_math_score&quot;</span><span class="p">,</span> 
           <span class="s2">&quot;avg_read_score&quot;</span><span class="p">,</span> <span class="s2">&quot;avg_science_score&quot;</span><span class="p">,</span> <span class="s2">&quot;avg_total_score&quot;</span><span class="p">]:</span>
     <span class="n">pisa_new</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">pisa_new</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
 
@@ -14342,34 +14231,28 @@ Number of duplicate rows: 0
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>country                    object
-gender                     object
-posession_computer         object
-posession_software         object
-posession_internet         object
-at_home_computer           object
-at_home_laptop             object
-at_home_tablet             object
-at_home_internet           object
-at_school_computer         object
-at_school_laptop           object
-at_school_tablet           object
-at_school_internet         object
-first_use_computer         object
-first_use_internet         object
-at_school_chatting         object
-at_school_emailing         object
-at_school_browsing         object
-at_school_downloading      object
-at_school_posting          object
-age                       float64
-study_time                float64
-parent_education_years    float64
-computer_time             float64
-avg_math_score            float64
-avg_read_score            float64
-avg_science_score         float64
-avg_total_score           float64
+<pre>country                           object
+oecd                              object
+gender                            object
+age                              float64
+at_home_computer                  object
+at_home_internet                  object
+at_school_computer                object
+at_school_internet                object
+first_use_computer                object
+first_use_internet                object
+at_school_chatting                object
+at_school_emailing                object
+at_school_browsing                object
+at_school_downloading             object
+at_school_posting                 object
+at_home_computer_study_time      float64
+at_home_study_time               float64
+at_school_computer_study_time    float64
+avg_math_score                   float64
+avg_read_score                   float64
+avg_science_score                float64
+avg_total_score                  float64
 dtype: object</pre>
 </div>
 
@@ -14392,8 +14275,8 @@ dtype: object</pre>
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Drop rows if they do not contain at least one answer for the first eight ICT questions</span>
-<span class="n">pisa_new</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;at_home_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;at_home_laptop&quot;</span><span class="p">,</span> <span class="s2">&quot;at_home_tablet&quot;</span><span class="p">,</span> <span class="s2">&quot;at_home_internet&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_laptop&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_tablet&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_internet&quot;</span><span class="p">],</span> <span class="n">thresh</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Drop rows if they do not contain at least one answer for the first couple of ICT questions</span>
+<span class="n">pisa_new</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;at_home_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;at_home_internet&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_computer&quot;</span><span class="p">,</span> <span class="s2">&quot;at_school_internet&quot;</span><span class="p">],</span> <span class="n">thresh</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Test if changes were successful</span>
 <span class="n">pisa_new</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -14414,38 +14297,32 @@ dtype: object</pre>
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-Int64Index: 299907 entries, 22151 to 475552
-Data columns (total 28 columns):
-country                   299907 non-null object
-gender                    299907 non-null object
-posession_computer        296940 non-null object
-posession_software        290994 non-null object
-posession_internet        296702 non-null object
-at_home_computer          296977 non-null object
-at_home_laptop            297068 non-null object
-at_home_tablet            295602 non-null object
-at_home_internet          297305 non-null object
-at_school_computer        296975 non-null object
-at_school_laptop          295618 non-null object
-at_school_tablet          294625 non-null object
-at_school_internet        296944 non-null object
-first_use_computer        292771 non-null object
-first_use_internet        295827 non-null object
-at_school_chatting        291252 non-null object
-at_school_emailing        290479 non-null object
-at_school_browsing        289714 non-null object
-at_school_downloading     290382 non-null object
-at_school_posting         290502 non-null object
-age                       299821 non-null float64
-study_time                195892 non-null float64
-parent_education_years    294958 non-null float64
-computer_time             296540 non-null float64
-avg_math_score            299907 non-null float64
-avg_read_score            299907 non-null float64
-avg_science_score         299907 non-null float64
-avg_total_score           299907 non-null float64
-dtypes: float64(8), object(20)
-memory usage: 66.4+ MB
+Int64Index: 299843 entries, 22151 to 475552
+Data columns (total 22 columns):
+country                          299843 non-null object
+oecd                             299843 non-null object
+gender                           299843 non-null object
+age                              299757 non-null float64
+at_home_computer                 296977 non-null object
+at_home_internet                 297305 non-null object
+at_school_computer               296975 non-null object
+at_school_internet               296944 non-null object
+first_use_computer               292722 non-null object
+first_use_internet               295779 non-null object
+at_school_chatting               291223 non-null object
+at_school_emailing               290458 non-null object
+at_school_browsing               289690 non-null object
+at_school_downloading            290362 non-null object
+at_school_posting                290482 non-null object
+at_home_computer_study_time      186720 non-null float64
+at_home_study_time               195863 non-null float64
+at_school_computer_study_time    296489 non-null float64
+avg_math_score                   299843 non-null float64
+avg_read_score                   299843 non-null float64
+avg_science_score                299843 non-null float64
+avg_total_score                  299843 non-null float64
+dtypes: float64(8), object(14)
+memory usage: 52.6+ MB
 </pre>
 </div>
 </div>
@@ -14468,10 +14345,10 @@ memory usage: 66.4+ MB
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Remove study time values that are larger than 40</span>
-<span class="n">pisa_new</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pisa_new</span><span class="p">[</span><span class="s2">&quot;study_time&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">40</span><span class="p">,</span> <span class="s2">&quot;study_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">pisa_new</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pisa_new</span><span class="p">[</span><span class="s2">&quot;at_home_study_time&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">40</span><span class="p">,</span> <span class="s2">&quot;at_home_study_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
 <span class="c1"># Test if changes were successful</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maximum hours of study time out of school:&quot;</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">pisa_new</span><span class="o">.</span><span class="n">study_time</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maximum hours of study time out of school:&quot;</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">pisa_new</span><span class="o">.</span><span class="n">at_home_study_time</span><span class="p">))</span>
 </pre></div>
 
     </div>
