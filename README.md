@@ -2,11 +2,9 @@
 ### by Phillip Schneider
 
 ## Files
-
-> 
-Data preprocessing - wrangle_pisa_data.ipynb
-Exploratory data analysis - slide_deck_pisa_data.ipynb
-Presentation of results - slide_deck_pisa_data.ipynb
+- Data preprocessing - wrangle_pisa_data.ipynb
+- Exploratory data analysis - slide_deck_pisa_data.ipynb
+- Presentation of results - slide_deck_pisa_data.ipynb
 
 
 ## Dataset
