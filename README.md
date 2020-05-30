@@ -1,5 +1,5 @@
 # PISA 2012 Dataset Exploration
-## by Phillip Schneider
+### by Phillip Schneider
 
 ## Files
 
@@ -12,30 +12,28 @@ Presentation of results - slide_deck_pisa_data.ipynb
 ## Dataset
 
 The dataset for this project comes from the PISA study conducted in the year 2012. This large-scale, international study aims at assessing problem solving and cognition skills by testing students' scholastic performance in math, reading, and science. While the original dataset (https://s3.amazonaws.com/udacity-hosted-downloads/ud507/pisa2012.csv.zip) holds information for about 500000 students and over 600 observed variables, the prepared subset for this project consists of 299843 rows and 22 columns. The selected columns are as follows:
->Name                             Type
-----------------------------------------
-country                           object
-oecd                              object
-gender                            object
-age                              float64
-at_home_computer                  object
-at_home_internet                  object
-at_school_computer                object
-at_school_internet                object
-first_use_computer                object
-first_use_internet                object
-at_school_chatting                object
-at_school_emailing                object
-at_school_browsing                object
-at_school_downloading             object
-at_school_posting                 object
-at_home_computer_study_time      float64
-at_home_study_time               float64
-at_school_computer_study_time    float64
-avg_math_score                   float64
-avg_read_score                   float64
-avg_science_score                float64
-avg_total_score                  float64
+- country                           
+- oecd                              
+- gender                            
+- age     
+- at_home_computer                  
+- at_home_internet               
+- at_school_computer         
+- at_school_internet     
+- first_use_computer                
+- first_use_internet              
+- at_school_chatting              
+- at_school_emailing             
+- at_school_browsing               
+- at_school_downloading         
+- at_school_posting           
+- at_home_computer_study_time  
+- at_home_study_time             
+- at_school_computer_study_time    
+- avg_math_score                   
+- avg_read_score                  
+- avg_science_score              
+- avg_total_score                
 
 
 ## Summary of Findings
